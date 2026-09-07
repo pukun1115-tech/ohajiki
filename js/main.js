@@ -1,7 +1,62 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-function resizeCanvas() {
+const game = {
+    isPointerDown: false,
+    pointerX: null,
+    pointerY: null
+};
+
+window.addEventListener("resize", () => {
+    resizeCanvas(canvas, ctx);
+});
+
+canvas.addEventListener("pointerdown", (e) => {
+    e.preventDefault();
+    updatePointerPosition(e);
+    game.isPointerDown = true;
+
+    console.log(game.pointerX, game.pointerY);
+});
+
+canvas.addEventListener("pointermove", (e) => {
+    e.preventDefault();
+    updatePointerPosition(e);
+});
+
+canvas.addEventListener("pointerup", (e) => {
+    e.preventDefault();
+    updatePointerPosition(e);
+    game.isPointerDown = false;
+});
+
+const ohajikiArray = [];
+ohajikiArray.push(new ohajiki(0.8, 1, 0.1, 10, "rgba(0, 255, 255, 1)"));
+
+resizeCanvas(canvas);
+mainLoop();
+
+function mainLoop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (const o of ohajikiArray) {
+        o.draw(canvas, ctx);
+    }
+
+    if (game.isPointerDown) {
+        for (const o of ohajikiArray) {
+            const distance = Math.pow(game.pointerX - o.x, 2) + Math.pow(game.pointerY - o.y, 2);
+            if (distance < Math.pow(o.radius, 2)) {
+                o.color = "rgba(255, 0, 0, 1)";
+            }
+        }
+    }
+
+    requestAnimationFrame(mainLoop);
+}
+
+function resizeCanvas(canvas) {
+    //ウィンドウの大きさ
     const w = Math.floor(window.innerWidth);
     const h = Math.floor(window.innerHeight / 2) * 2;
 
@@ -9,9 +64,11 @@ function resizeCanvas() {
     let displayWidth, displayHeight;
 
     if ((h / 2) > w) {
+        //縦が余る
         displayWidth = w;
         displayHeight = w * 2;
     } else {
+        //横が余る
         displayWidth = h / 2;
         displayHeight = h;
     }
@@ -23,19 +80,10 @@ function resizeCanvas() {
 
     canvas.width = displayWidth * dpr;
     canvas.height = displayHeight * dpr;
-
-    ctx.scale(dpr, dpr);
 }
 
-window.addEventListener("resize", resizeCanvas);
-
-const ohajikiArray = [];
-
-function mainLoop() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    requestAnimationFrame(mainLoop);
+function updatePointerPosition(e) {
+    const rect = e.currentTarget.getBoundingClientRect();
+    game.pointerX = (e.clientX - rect.left) / rect.width;
+    game.pointerY = (e.clientY - rect.top) / rect.width;
 }
-
-resizeCanvas();
-mainLoop();
