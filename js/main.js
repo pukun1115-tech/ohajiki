@@ -2,9 +2,10 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 const game = {
-    isPointerDown: false,
+    pointerDown: false,
     pointerX: null,
-    pointerY: null
+    pointerY: null,
+    pointerTargetOhajiki: null
 };
 
 window.addEventListener("resize", () => {
@@ -14,9 +15,7 @@ window.addEventListener("resize", () => {
 canvas.addEventListener("pointerdown", (e) => {
     e.preventDefault();
     updatePointerPosition(e);
-    game.isPointerDown = true;
-
-    console.log(game.pointerX, game.pointerY);
+    game.pointerDown = true;
 });
 
 canvas.addEventListener("pointermove", (e) => {
@@ -27,7 +26,7 @@ canvas.addEventListener("pointermove", (e) => {
 canvas.addEventListener("pointerup", (e) => {
     e.preventDefault();
     updatePointerPosition(e);
-    game.isPointerDown = false;
+    game.pointerDown = false;
 });
 
 const ohajikiArray = [];
@@ -43,7 +42,7 @@ function mainLoop() {
         o.draw(canvas, ctx);
     }
 
-    if (game.isPointerDown) {
+    if (game.pointerDown) {
         for (const o of ohajikiArray) {
             const distance = Math.pow(game.pointerX - o.x, 2) + Math.pow(game.pointerY - o.y, 2);
             if (distance < Math.pow(o.radius, 2)) {
