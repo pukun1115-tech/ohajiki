@@ -44,7 +44,7 @@ function mainLoop() {
         o.update();
     }
 
-    const target = ohajikiArray.find(o => (o.id === pointerTargetOhajikiId));
+    const target = ohajikiArray.find(o => (o.id ===game.pointerTargetOhajikiId));
     if (target === null) {
         if (game.pointerDown) {
             for (const o of ohajikiArray) {
