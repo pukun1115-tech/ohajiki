@@ -63,8 +63,10 @@ function mainLoop() {
             target.ty = game.pointerY - target.y;
         }
         else {
-            target.gx = -target.tx / 100;
-            target.gy = -target.ty / 100;
+            target.gx = -target.tx / 20;
+            target.gy = -target.ty / 20;
+            target.tx = null;
+            target.ty = null;
             game.pointerTargetOhajikiId = null;
         }
     }
