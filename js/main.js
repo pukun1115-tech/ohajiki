@@ -17,6 +17,13 @@ canvas.addEventListener("pointerdown", (e) => {
     e.preventDefault();
     updatePointerPosition(e);
     game.pointerDown = true;
+    for (const o of ohajikiArray) {
+        const distance = Math.pow(game.pointerX - o.x, 2) + Math.pow(game.pointerY - o.y, 2);
+        if (distance < Math.pow(o.radius, 2)) {
+            game.pointerTargetOhajikiId = o.id;
+            break;
+        }
+    }
 });
 
 canvas.addEventListener("pointermove", (e) => {
@@ -46,18 +53,7 @@ function mainLoop() {
     }
 
     const target = ohajikiArray.find(o => (o.id ===game.pointerTargetOhajikiId));
-    if (target === undefined) {
-        if (game.pointerDown) {
-            for (const o of ohajikiArray) {
-                const distance = Math.pow(game.pointerX - o.x, 2) + Math.pow(game.pointerY - o.y, 2);
-                if (distance < Math.pow(o.radius, 2)) {
-                    game.pointerTargetOhajikiId = o.id;
-                    break;
-                }
-            }
-        }
-    }
-    else {
+    if (target !== undefined) {
         if (game.pointerDown) {
             target.tx = game.pointerX - target.x;
             target.ty = game.pointerY - target.y;
