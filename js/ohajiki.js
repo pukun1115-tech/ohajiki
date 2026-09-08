@@ -48,5 +48,36 @@ class ohajiki {
             this.y = (2 - this.radius) * 2 - this.y;
             this.gy = -this.gy;
         }
+
+        for (const p of ohajikiArray) {
+            if (this.id === p.id) continue;
+            const dx = p.x - this.x;
+            const dy = p.y - this.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < this.radius + p.radius) {
+                if (distance === 0) continue;
+
+                //めり込み
+                const overlap = this.radius + p.radius - distance;
+                //長さ1のときのx,yの方向ベクトル
+                const nx = dx / distance;
+                const ny = dy / distance;
+                //thisを押し戻す
+                this.x -= nx * overlap;
+                this.y -= ny * overlap;
+
+                //近づいているときだけ、質量に応じて速度を交換する(github copilot)
+                //相対的に二つが近づいているとき
+                const relativeVelocity = (p.gx - this.gx) * nx + (p.gy - this.gy) * ny;
+                if (relativeVelocity < 0) {
+                    const inverseWeightSum = 1 / this.weight + 1 / p.weight;
+                    const impulse = -2 * relativeVelocity / inverseWeightSum;
+                    this.gx -= impulse * nx / this.weight;
+                    this.gy -= impulse * ny / this.weight;
+                    p.gx += impulse * nx / p.weight;
+                    p.gy += impulse * ny / p.weight;
+                }
+            }
+        }
     }
 }
