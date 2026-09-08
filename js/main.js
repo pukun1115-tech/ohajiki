@@ -5,7 +5,8 @@ const game = {
     pointerDown: false,
     pointerX: null,
     pointerY: null,
-    pointerTargetOhajiki: null
+    pointerTargetOhajiki: null,
+    ohajikiId: 0
 };
 
 window.addEventListener("resize", () => {
@@ -30,7 +31,7 @@ canvas.addEventListener("pointerup", (e) => {
 });
 
 const ohajikiArray = [];
-ohajikiArray.push(new ohajiki(0.8, 1, 0.1, 10, "rgba(0, 255, 255, 1)"));
+ohajikiArray.push(createOhajiki(0.8, 1, 0.1, 10, "rgba(255, 255, 0, 1)"));
 
 resizeCanvas(canvas);
 mainLoop();
@@ -47,6 +48,8 @@ function mainLoop() {
             const distance = Math.pow(game.pointerX - o.x, 2) + Math.pow(game.pointerY - o.y, 2);
             if (distance < Math.pow(o.radius, 2)) {
                 o.color = "rgba(255, 0, 0, 1)";
+                game.pointerTargetOhajiki = o.id;
+                break;
             }
         }
     }
@@ -85,4 +88,9 @@ function updatePointerPosition(e) {
     const rect = e.currentTarget.getBoundingClientRect();
     game.pointerX = (e.clientX - rect.left) / rect.width;
     game.pointerY = (e.clientY - rect.top) / rect.width;
+}
+
+function createOhajiki(x, y, radius, weight, color) {
+    game.ohajikiId++;
+    return new(game.ohajikiId, x, y, radius, weight, color);
 }
