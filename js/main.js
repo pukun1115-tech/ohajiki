@@ -92,5 +92,5 @@ function updatePointerPosition(e) {
 
 function createOhajiki(x, y, radius, weight, color) {
     game.ohajikiId++;
-    return new(game.ohajikiId, x, y, radius, weight, color);
+    return new ohajiki(game.ohajikiId, x, y, radius, weight, color);
 }
