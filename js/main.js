@@ -45,7 +45,7 @@ function mainLoop() {
     }
 
     const target = ohajikiArray.find(o => (o.id ===game.pointerTargetOhajikiId));
-    if (target === null) {
+    if (target === undefined) {
         if (game.pointerDown) {
             for (const o of ohajikiArray) {
                 const distance = Math.pow(game.pointerX - o.x, 2) + Math.pow(game.pointerY - o.y, 2);
