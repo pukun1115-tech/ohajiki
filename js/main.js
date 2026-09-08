@@ -40,9 +40,10 @@ canvas.addEventListener("pointerup", (e) => {
 const ohajikiArray = [];
 ohajikiArray.push(createOhajiki(0.8, 1.2, 0.1, 10, "rgba(255, 255, 0, 1)"));
 ohajikiArray.push(createOhajiki(0.4, 0.4, 0.05, 1, "rgba(0, 0, 255, 0.5)"));
+ohajikiArray.push(createOhajiki(0.8, 0.4, 0.05, 1, "rgba(255, 0, 0, 0.5)"));
 ohajikiArray.push(createOhajiki(0.8, 0.8, 0.15, 5, "rgba(15, 15, 255, 1)"));
 ohajikiArray.push(createOhajiki(0.2, 1.6, 0.05, 2, "rgba(0, 255, 255, 1)"));
-ohajikiArray.push(createOhajiki(0.3, 1.2, 0.2, 100, "rgba(255, 127, 0, 1)"));
+ohajikiArray.push(createOhajiki(0.3, 1.2, 0.2, 10, "rgba(255, 127, 0, 1)"));
 ohajikiArray.push(createOhajiki(0.3, 0.3, 0.02, 20, "rgba(127, 127, 0, 1)"));
 
 resizeCanvas(canvas);
@@ -63,8 +64,8 @@ function mainLoop() {
             pointerTarget.ty = game.pointerY - pointerTarget.y;
         }
         else {
-            pointerTarget.gx = -pointerTarget.tx / 20;
-            pointerTarget.gy = -pointerTarget.ty / 20;
+            pointerTarget.gx = -pointerTarget.tx / 40;
+            pointerTarget.gy = -pointerTarget.ty / 40;
             pointerTarget.tx = null;
             pointerTarget.ty = null;
             game.pointerTargetOhajikiId = null;
