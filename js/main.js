@@ -42,15 +42,28 @@ function mainLoop() {
     for (const o of ohajikiArray) {
         o.draw(canvas, ctx);
     }
-
-    if (game.pointerDown) {
-        for (const o of ohajikiArray) {
-            const distance = Math.pow(game.pointerX - o.x, 2) + Math.pow(game.pointerY - o.y, 2);
-            if (distance < Math.pow(o.radius, 2)) {
-                o.color = "rgba(255, 0, 0, 1)";
-                game.pointerTargetOhajiki = o.id;
-                break;
+    
+    if (game.pointerTargetOhajiki === null) {
+        if (game.pointerDown) {
+            for (const o of ohajikiArray) {
+                const distance = Math.pow(game.pointerX - o.x, 2) + Math.pow(game.pointerY - o.y, 2);
+                if (distance < Math.pow(o.radius, 2)) {
+                    o.color = "rgba(255, 0, 0, 1)";
+                    game.pointerTargetOhajiki = o.id;
+                    break;
+                }
             }
+            if (game.pointerTargetOhajiki !== null) {
+                //
+            }
+        }
+    }
+    else {
+        if (game.pointerDown) {
+            //
+        }
+        else {
+            game.pointerTargetOhajiki = null;
         }
     }
 
