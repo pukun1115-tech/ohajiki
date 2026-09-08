@@ -5,7 +5,7 @@ const game = {
     pointerDown: false,
     pointerX: null,
     pointerY: null,
-    pointerTargetOhajiki: null,
+    pointerTargetOhajikiId: null,
     ohajikiId: 0
 };
 
@@ -41,29 +41,31 @@ function mainLoop() {
 
     for (const o of ohajikiArray) {
         o.draw(canvas, ctx);
+        o.update();
     }
-    
-    if (game.pointerTargetOhajiki === null) {
+
+    const target = ohajikiArray.find(o => (o.id === pointerTargetOhajikiId));
+    if (target === null) {
         if (game.pointerDown) {
             for (const o of ohajikiArray) {
                 const distance = Math.pow(game.pointerX - o.x, 2) + Math.pow(game.pointerY - o.y, 2);
                 if (distance < Math.pow(o.radius, 2)) {
                     o.color = "rgba(255, 0, 0, 1)";
-                    game.pointerTargetOhajiki = o.id;
+                    game.pointerTargetOhajikiId = o.id;
                     break;
                 }
-            }
-            if (game.pointerTargetOhajiki !== null) {
-                //
             }
         }
     }
     else {
         if (game.pointerDown) {
-            //
+            target.tx = game.pointerX - target.x;
+            target.ty = game.pointerY - target.y;
         }
         else {
-            game.pointerTargetOhajiki = null;
+            target.gx = target.tx / 100;
+            target.gy = target.ty / 100;
+            game.pointerTargetOhajikiId = null;
         }
     }
 
