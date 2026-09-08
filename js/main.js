@@ -32,6 +32,7 @@ canvas.addEventListener("pointerup", (e) => {
 
 const ohajikiArray = [];
 ohajikiArray.push(createOhajiki(0.8, 1, 0.1, 10, "rgba(255, 255, 0, 1)"));
+ohajikiArray.push(createOhajiki(0.4, 1, 0.05, 10, "rgba(0, 0, 255, 0.5)"));
 
 resizeCanvas(canvas);
 mainLoop();
@@ -50,7 +51,6 @@ function mainLoop() {
             for (const o of ohajikiArray) {
                 const distance = Math.pow(game.pointerX - o.x, 2) + Math.pow(game.pointerY - o.y, 2);
                 if (distance < Math.pow(o.radius, 2)) {
-                    o.color = "rgba(255, 0, 0, 1)";
                     game.pointerTargetOhajikiId = o.id;
                     break;
                 }
@@ -63,8 +63,8 @@ function mainLoop() {
             target.ty = game.pointerY - target.y;
         }
         else {
-            target.gx = target.tx / 100;
-            target.gy = target.ty / 100;
+            target.gx = -target.tx / 100;
+            target.gy = -target.ty / 100;
             game.pointerTargetOhajikiId = null;
         }
     }
