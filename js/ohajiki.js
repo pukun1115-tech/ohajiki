@@ -19,6 +19,12 @@ class ohajiki {
         ctx.beginPath();
         ctx.arc(canvas.width * this.x, canvas.width * this.y, canvas.width * this.radius, 0, Math.PI * 2);
         ctx.fill();
+        ctx.strokeStyle = "rgba(255, 255, 255, 1)";
+        ctx.lineWidth = canvas.width * 0.01;
+        ctx.beginPath();
+        ctx.moveTo(canvas.width * this.x, canvas.width * this.y);
+        ctx.lineTo(canvas.width * this.x + this.tx, canvas.width * this.y + this.ty);
+        ctx.stroke();
     }
 
     update() {
