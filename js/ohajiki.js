@@ -26,19 +26,19 @@ class ohajiki {
         this.y += this.gy;
         if (this.x < 0 + this.radius) {
             this.x = (0 + this.radius) * 2 - this.x;
-            this.gx = -this.x;
+            this.gx = -this.gx;
         }
         if (this.x > 1 - this.radius) {
             this.x = (1 - this.radius) * 2 - this.x;
-            this.gx = -this.x;
+            this.gx = -this.gx;
         }
         if (this.y < 0 + this.radius) {
             this.y = (0 + this.radius) * 2 - this.y;
-            this.gy = -this.y;
+            this.gy = -this.gy;
         }
         if (this.y > 2 - this.radius) {
             this.y = (2 - this.radius) * 2 - this.y;
-            this.gy = -this.y;
+            this.gy = -this.gy;
         }
     }
 }
