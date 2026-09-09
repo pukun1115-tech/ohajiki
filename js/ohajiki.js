@@ -31,7 +31,7 @@ class ohajiki {
 
     update() {
         //減速
-        const friction = 0.995;
+        const friction = 1;
         this.gx *= friction;
         this.gy *= friction;
         
