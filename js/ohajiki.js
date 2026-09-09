@@ -30,6 +30,11 @@ class ohajiki {
     }
 
     update() {
+        // 減速処理：摩擦係数を掛ける
+        const friction = 0.98;
+        this.gx *= friction;
+        this.gy *= friction;
+        
         this.x += this.gx;
         this.y += this.gy;
         if (this.x < 0 + this.radius) {
