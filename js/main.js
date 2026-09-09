@@ -41,13 +41,13 @@ const ohajikiArray = [];
 for (let x = 1; x < 40; x += 2) {
     for (let y = 1; y < 80; y += 2) {
         if (y === 1) {
-            ohajikiArray.push(createOhajiki(x / 40, y / 40, 0.01, y * 5, "rgba(0, 0, 255, 1)"));
+            ohajikiArray.push(createOhajiki(x / 40, y / 40, 0.015, y * 5, "rgba(0, 0, 255, 1)"));
         }
         else if (y === 79) {
-            ohajikiArray.push(createOhajiki(x / 40, y / 40, 0.01, y * 5, "rgba(255, 0, 0, 1)"));
+            ohajikiArray.push(createOhajiki(x / 40, y / 40, 0.015, y * 5, "rgba(255, 0, 0, 1)"));
         }
         else {
-            ohajikiArray.push(createOhajiki(x / 40, y / 40, 0.01, y * 5, "rgba(255, 255, 0, 1)"));
+            ohajikiArray.push(createOhajiki(x / 40, y / 40, 0.015, y * 5, "rgba(255, 255, 0, 1)"));
         }
     }
 }
