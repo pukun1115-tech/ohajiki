@@ -62,8 +62,8 @@ function mainLoop() {
             pointerTarget.ty = game.pointerY - pointerTarget.y;
         }
         else {
-            pointerTarget.gx = -pointerTarget.tx / 40;
-            pointerTarget.gy = -pointerTarget.ty / 40;
+            pointerTarget.gx = -pointerTarget.tx / 20;
+            pointerTarget.gy = -pointerTarget.ty / 20;
             pointerTarget.tx = null;
             pointerTarget.ty = null;
             game.pointerTargetOhajikiId = null;
