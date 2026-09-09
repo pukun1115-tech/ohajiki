@@ -40,7 +40,15 @@ canvas.addEventListener("pointerup", (e) => {
 const ohajikiArray = [];
 for (let x = 0.1; x < 1; x += 0.2) {
     for (let y = 0.1; y < 2; y += 0.2) {
-        ohajikiArray.push(createOhajiki(x, y, 0.05, y * 5, "rgba(255, 255, 0, 1)"));
+        if (y === 0.1) {
+            ohajikiArray.push(createOhajiki(x, y, 0.05, y * 5, "rgba(0, 0, 255, 1)"));
+        }
+        else if (y === 1.9) {
+            ohajikiArray.push(createOhajiki(x, y, 0.05, y * 5, "rgba(255, 255, 0, 1)"));
+        }
+        else {
+            ohajikiArray.push(createOhajiki(x, y, 0.05, y * 5, "rgba(255, 0, 0, 1)"));
+        }
     }
 }
 
