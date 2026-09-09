@@ -38,16 +38,16 @@ canvas.addEventListener("pointerup", (e) => {
 });
 
 const ohajikiArray = [];
-for (let x = 1; x < 10; x += 2) {
-    for (let y = 1; y < 20; y += 2) {
+for (let x = 1; x < 20; x += 2) {
+    for (let y = 1; y < 40; y += 2) {
         if (y === 1) {
-            ohajikiArray.push(createOhajiki(x / 10, y / 10, 0.05, y * 5, "rgba(0, 0, 255, 1)"));
+            ohajikiArray.push(createOhajiki(x / 20, y / 20, 0.025, y * 5, "rgba(0, 0, 255, 1)"));
         }
-        else if (y === 19) {
-            ohajikiArray.push(createOhajiki(x / 10, y / 10, 0.05, y * 5, "rgba(255, 255, 0, 1)"));
+        else if (y === 39) {
+            ohajikiArray.push(createOhajiki(x / 20, y / 20, 0.025, y * 5, "rgba(255, 0, 0, 1)"));
         }
         else {
-            ohajikiArray.push(createOhajiki(x / 10, y / 10, 0.05, y * 5, "rgba(255, 0, 0, 1)"));
+            ohajikiArray.push(createOhajiki(x / 20, y / 20, 0.025, y * 5, "rgba(255, 255, 0, 1)"));
         }
     }
 }
