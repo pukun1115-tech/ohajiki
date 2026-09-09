@@ -31,7 +31,7 @@ class ohajiki {
 
     update() {
         //減速
-        const friction = 0.99;
+        const friction = 0.995;
         this.gx *= friction;
         this.gy *= friction;
         
@@ -76,7 +76,7 @@ class ohajiki {
                 const relativeVelocity = (p.gx - this.gx) * nx + (p.gy - this.gy) * ny;
                 if (relativeVelocity < 0) {
                     const inverseWeightSum = 1 / this.weight + 1 / p.weight;
-                    const impulse = -1.8 * relativeVelocity / inverseWeightSum;
+                    const impulse = -2 * relativeVelocity / inverseWeightSum;
                     this.gx -= impulse * nx / this.weight;
                     this.gy -= impulse * ny / this.weight;
                     p.gx += impulse * nx / p.weight;
