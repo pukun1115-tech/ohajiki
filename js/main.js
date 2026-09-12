@@ -38,19 +38,23 @@ canvas.addEventListener("pointerup", (e) => {
 });
 
 const ohajikiArray = [];
-for (let x = 1; x < 40; x += 2) {
-    for (let y = 1; y < 80; y += 2) {
+for (let x = 1; x < 20; x += 2) {
+    for (let y = 1; y < 20; y += 2) {
         if (y === 1) {
-            ohajikiArray.push(createOhajiki(x / 40, y / 40, 0.015, y * 5, "rgba(0, 0, 255, 1)"));
+            ohajikiArray.push(createOhajiki(x / 20, y / 20, 0.02, y * 5, "rgba(0, 0, 255, 1)"));
         }
-        else if (y === 79) {
-            ohajikiArray.push(createOhajiki(x / 40, y / 40, 0.015, y * 5, "rgba(255, 0, 0, 1)"));
+        else if (y === 19) {
+            ohajikiArray.push(createOhajiki(x / 20, y / 20, 0.02, y * 5, "rgba(255, 0, 0, 1)"));
         }
         else {
-            ohajikiArray.push(createOhajiki(x / 40, y / 40, 0.015, y * 5, "rgba(255, 255, 0, 1)"));
+            ohajikiArray.push(createOhajiki(x / 20, y / 20, 0.02, y * 5, "rgba(255, 255, 0, 1)"));
         }
     }
 }
+ohajikiArray.push(createOhajiki(0.4, 1.5, 0.2, 200, "rgba(255, 100, 0, 1)"));
+ohajikiArray.push(createOhajiki(0.8, 1.5, 0.1, 5, "rgba(0, 100, 100, 1)"));
+ohajikiArray.push(createOhajiki(0.8, 1.8, 0.1, 5, "rgba(100, 0, 100, 1)"));
+ohajikiArray.push(createOhajiki(0.2, 1.8, 0.05, 400, "rgba(255, 0, 100, 1)"));
 
 resizeCanvas(canvas);
 mainLoop();
@@ -63,15 +67,15 @@ function mainLoop() {
         o.update();
     }
 
-    const pointerTarget = ohajikiArray.find(o => (o.id ===game.pointerTargetOhajikiId));
+    const pointerTarget = ohajikiArray.find(o => (o.id === game.pointerTargetOhajikiId));
     if (pointerTarget !== undefined) {
         if (game.pointerDown) {
             pointerTarget.tx = game.pointerX - pointerTarget.x;
             pointerTarget.ty = game.pointerY - pointerTarget.y;
         }
         else {
-            pointerTarget.gx = -pointerTarget.tx / 20;
-            pointerTarget.gy = -pointerTarget.ty / 20;
+            pointerTarget.gx = -pointerTarget.tx / 30;
+            pointerTarget.gy = -pointerTarget.ty / 30;
             pointerTarget.tx = null;
             pointerTarget.ty = null;
             game.pointerTargetOhajikiId = null;

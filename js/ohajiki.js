@@ -1,5 +1,5 @@
 class ohajiki {
-    constructor(id, x, y, radius, weight, color ) {
+    constructor(id, x, y, radius, weight, color) {
         this.id = id;
         this.x = x;
         this.y = y;
@@ -13,7 +13,7 @@ class ohajiki {
         this.gx = 0;
         this.gy = 0;
     }
-    
+
     draw(canvas, ctx) {
         ctx.fillStyle = this.color;
         ctx.beginPath();
@@ -31,56 +31,58 @@ class ohajiki {
 
     update() {
         //減速
-        const friction = 0.999;
+        const friction = 0.998;
         this.gx *= friction;
         this.gy *= friction;
-        
-        this.x += this.gx;
-        this.y += this.gy;
-        if (this.x < 0 + this.radius) {
-            this.x = (0 + this.radius) * 2 - this.x;
-            this.gx = -this.gx;
-        }
-        if (this.x > 1 - this.radius) {
-            this.x = (1 - this.radius) * 2 - this.x;
-            this.gx = -this.gx;
-        }
-        if (this.y < 0 + this.radius) {
-            this.y = (0 + this.radius) * 2 - this.y;
-            this.gy = -this.gy;
-        }
-        if (this.y > 2 - this.radius) {
-            this.y = (2 - this.radius) * 2 - this.y;
-            this.gy = -this.gy;
-        }
 
-        for (const p of ohajikiArray) {
-            if (this.id === p.id) continue;
-            const dx = p.x - this.x;
-            const dy = p.y - this.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            if (distance < this.radius + p.radius) {
-                if (distance === 0) continue;
+        for (let i = 0; i < 20; i++) {
+            this.x += this.gx / 20;
+            this.y += this.gy / 20;
+            if (this.x < 0 + this.radius) {
+                this.x = (0 + this.radius) * 2 - this.x;
+                this.gx = -this.gx;
+            }
+            if (this.x > 1 - this.radius) {
+                this.x = (1 - this.radius) * 2 - this.x;
+                this.gx = -this.gx;
+            }
+            if (this.y < 0 + this.radius) {
+                this.y = (0 + this.radius) * 2 - this.y;
+                this.gy = -this.gy;
+            }
+            if (this.y > 2 - this.radius) {
+                this.y = (2 - this.radius) * 2 - this.y;
+                this.gy = -this.gy;
+            }
 
-                //めり込み
-                const overlap = this.radius + p.radius - distance;
-                //長さ1のときのx,yの方向ベクトル
-                const nx = dx / distance;
-                const ny = dy / distance;
-                //thisを押し戻す
-                this.x -= nx * overlap;
-                this.y -= ny * overlap;
+            for (const p of ohajikiArray) {
+                if (this.id === p.id) continue;
+                const dx = p.x - this.x;
+                const dy = p.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < this.radius + p.radius) {
+                    if (distance === 0) continue;
 
-                //近づいているときだけ、質量に応じて速度を交換する(github copilot)
-                //相対的に二つが近づいているとき
-                const relativeVelocity = (p.gx - this.gx) * nx + (p.gy - this.gy) * ny;
-                if (relativeVelocity < 0) {
-                    const inverseWeightSum = 1 / this.weight + 1 / p.weight;
-                    const impulse = -2 * relativeVelocity / inverseWeightSum;
-                    this.gx -= impulse * nx / this.weight;
-                    this.gy -= impulse * ny / this.weight;
-                    p.gx += impulse * nx / p.weight;
-                    p.gy += impulse * ny / p.weight;
+                    //めり込み
+                    const overlap = this.radius + p.radius - distance;
+                    //長さ1のときのx,yの方向ベクトル
+                    const nx = dx / distance;
+                    const ny = dy / distance;
+                    //thisを押し戻す
+                    this.x -= nx * overlap;
+                    this.y -= ny * overlap;
+
+                    //近づいているときだけ、質量に応じて速度を交換する(github copilot)
+                    //相対的に二つが近づいているとき
+                    const relativeVelocity = (p.gx - this.gx) * nx + (p.gy - this.gy) * ny;
+                    if (relativeVelocity < 0) {
+                        const inverseWeightSum = 1 / this.weight + 1 / p.weight;
+                        const impulse = -2 * relativeVelocity / inverseWeightSum;
+                        this.gx -= impulse * nx / this.weight;
+                        this.gy -= impulse * ny / this.weight;
+                        p.gx += impulse * nx / p.weight;
+                        p.gy += impulse * ny / p.weight;
+                    }
                 }
             }
         }
